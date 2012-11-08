@@ -19,10 +19,11 @@ setup(
     author_email='venelin@magicbg.com',
     packages=[
         'cmsplugin_tabs',
+        'cmsplugin_tabs.migrations',
     ],
     package_data={
         'cmsplugin_tabs': [
-            'static/cmsplugin_tabs/*.gif',
+            'templates/cmsplugin_tabs/*.html',
         ],
     },
     classifiers=[
