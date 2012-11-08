@@ -1,3 +1,7 @@
+/*
+Code taken from django snippets
+http://djangosnippets.org/snippets/1053/
+*/
 (function($){
     $(function() {
         $('div.inline-group').sortable({
