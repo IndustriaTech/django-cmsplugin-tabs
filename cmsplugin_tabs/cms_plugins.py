@@ -9,6 +9,7 @@ from .models import CMSTabsList, SingleTab
 
 class TabInline(StackedInline):
     model = SingleTab
+    extra = 1
 
 
 class CMSTabsListPlugin(CMSPluginBase):
@@ -18,6 +19,14 @@ class CMSTabsListPlugin(CMSPluginBase):
     admin_preview = False
     render_template = 'cmsplugin_tabs/tabs.html'
     inlines = [TabInline]
+
+    class Media:
+        js = (
+            "cmsplugin_tabs/js/jquery.init.js",
+            "cms/js/libs/jquery.ui.core.js",
+            "cms/js/libs/jquery.ui.sortable.js",
+            "cmsplugin_tabs/js/jquery.inlineordering.js",
+            )
 
     def render(self, context, instance, placeholder):
         context.update({
