@@ -2,6 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
 from cms.models import CMSPlugin
+from tinymce.models import HTMLField
 
 
 class CMSTabsList(CMSPlugin):
@@ -11,7 +12,7 @@ class CMSTabsList(CMSPlugin):
 class SingleTab(models.Model):
     plugin = models.ForeignKey(CMSTabsList, related_name='tabs')
     title = models.CharField(_('Title'), max_length=32)
-    content = models.TextField(_('Content'))
+    content = HTMLField(_('Content'))
     order = models.PositiveIntegerField(_('Order'), default=1, db_index=True)
 
     class Meta:
