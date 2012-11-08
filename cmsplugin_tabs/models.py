@@ -1,0 +1,26 @@
+from django.utils.translation import ugettext_lazy as _
+from django.db import models
+
+from cms.models import CMSPlugin
+
+
+class CMSTabsList(CMSPlugin):
+    pass
+
+
+class SingleTab(models.Model):
+    plugin = models.ForeignKey(CMSTabsList, related_name='tabs')
+    title = models.CharField(_('Title'), max_length=32)
+    content = models.TextField(_('Content'))
+    order = models.PositiveIntegerField(_('Order'), default=1, db_index=True)
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = _('Tab')
+        verbose_name_plural = _('Tabs')
+
+    def __unicode__(self):
+        return unicode(self.title)
+
+    def get_html_id(self):
+        return 'cmsplugin_tabs_%s' % self.pk

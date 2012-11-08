@@ -1,0 +1,17 @@
+<div id="{{ tabs_list_id }}" class="tabs-plugin">
+	<ul class="tabs-list">
+		{% for tab in tabs %}
+			<li><a href="#{{tab.get_html_id}}">{{ tab }}</a></li>
+		{% endfor %}
+	</ul>
+	{% for tab in tabs %}
+		<div id="{{tab.get_html_id}}">
+			{{ tab.content|safe }}
+		</div>
+	{% endfor %}
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('#{{ tabs_list_id }}').tabs();
+	});
+</script>
