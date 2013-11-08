@@ -6,7 +6,13 @@ from tinymce.models import HTMLField
 
 
 class CMSTabsList(CMSPlugin):
-    pass
+
+    def copy_relations(self, oldinstance):
+        super(CMSTabsList, self).copy_relations(oldinstance)
+        for tab in oldinstance.tabs.all().iterator():
+            tab.pk = None
+            tab.plugin = self
+            tab.save()
 
 
 class SingleTab(models.Model):
