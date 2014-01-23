@@ -28,7 +28,7 @@ class CMSTabsList(CMSPlugin):
 
 class SingleTab(models.Model):
     plugin = models.ForeignKey(CMSTabsList, related_name='tabs')
-    title = models.CharField(_('Title'), max_length=64)
+    title = models.CharField(_('Title'), max_length=255)
     content = HTMLField(_('Content'))
     order = models.PositiveIntegerField(_('Order'), default=1, db_index=True)
 
