@@ -1,0 +1,8 @@
+<div id="{{ tabs_list_id }}" class="tabs-plugin accordion">
+	{% for tab in tabs %}
+		<h3><a href="#{{tab.get_html_id}}">{{ tab }}</a></h3>
+		<div id="{{tab.get_html_id}}">
+			{{ tab.content|safe }}
+		</div>
+	{% endfor %}
+</div>

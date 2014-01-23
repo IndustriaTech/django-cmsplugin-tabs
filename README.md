@@ -25,6 +25,28 @@ You must include JQuery and JQuery UI in your base template. Example:
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 
 
+CONFIGURATION
+-------------
+
+You can configure which templates to use. In your settings you can set:
+
+    TABSPLUGIN_TEMPLATES = (
+        ('template1.html', 'Template 1 Name'),
+        ('template2.html', 'Template 2 Name'),
+        .....
+    )
+
+By default cmsplugin-tabs use this configuration:
+
+    TABSPLUGIN_TEMPLATES = (
+        ('cmsplugin_tabs/tabs.html', _('Tabs')),
+        ('cmsplugin_tabs/accordion.html', _('Accordion')),
+    )
+
+NOTE: Actually `accordion.html` template will not work as expected, because there is no javascript for it.
+But it will be easy to write custom JS and/or to change the template and make it work.
+
+
 REQUIREMENTS
 ------------
 

@@ -4,7 +4,7 @@ from django.contrib.admin import StackedInline
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import CMSTabsList, SingleTab
+from .models import CMSTabsList, SingleTab, DEFAULT_TEMPLATE
 
 
 class TabInline(StackedInline):
@@ -17,7 +17,7 @@ class CMSTabsListPlugin(CMSPluginBase):
     module = _('Tabs')
     name = _('Tabs')
     admin_preview = False
-    render_template = 'cmsplugin_tabs/tabs.html'
+    render_template = DEFAULT_TEMPLATE
     inlines = [TabInline]
 
     class Media:
@@ -29,6 +29,7 @@ class CMSTabsListPlugin(CMSPluginBase):
             )
 
     def render(self, context, instance, placeholder):
+        self.render_template = instance.get_template()
         context.update({
             'tabs_list_id': 'tabs_list_plugin_%s' % instance.pk,
             'tabs': instance.tabs.all(),

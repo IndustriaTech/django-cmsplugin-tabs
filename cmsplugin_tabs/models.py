@@ -1,11 +1,19 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+from django.conf import settings
 
 from cms.models import CMSPlugin
 from tinymce.models import HTMLField
 
+TEMPLATE_CHOICES = getattr(settings, 'TABSPLUGIN_TEMPLATES', (
+    ('cmsplugin_tabs/tabs.html', _('Tabs')),
+    ('cmsplugin_tabs/accordion.html', _('Accordion')),
+))
+DEFAULT_TEMPLATE = TEMPLATE_CHOICES[0][0]
+
 
 class CMSTabsList(CMSPlugin):
+    template = models.CharField(_('Template'), max_length=255, choices=TEMPLATE_CHOICES, default=DEFAULT_TEMPLATE)
 
     def copy_relations(self, oldinstance):
         super(CMSTabsList, self).copy_relations(oldinstance)
@@ -13,6 +21,9 @@ class CMSTabsList(CMSPlugin):
             tab.pk = None
             tab.plugin = self
             tab.save()
+
+    def get_template(self):
+        return self.template or DEFAULT_TEMPLATE
 
 
 class SingleTab(models.Model):
