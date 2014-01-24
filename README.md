@@ -8,13 +8,13 @@ INSTALLATION
 
 You can simply install it with pip like this:
 
-    pip install git+git://github.com/MagicSolutions/django-cmsplugin-tabs.git#egg=django-cmsplugin-tabs
+    pip install git+https://github.com/MagicSolutions/django-cmsplugin-tabs.git#egg=django-cmsplugin-tabs
 
-After taht you must add it to installed apps:
+After that you must add it to installed apps:
 
     INSTALLED_APPS = (
         ...
-        'cmsplugin-tabs',
+        'cmsplugin_tabs',
         ...
     )
 
