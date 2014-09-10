@@ -5,6 +5,7 @@ from django.conf import settings
 from cms.models import CMSPlugin
 from tinymce.models import HTMLField
 
+REQUIRE_SLUG = getattr(settings, 'TABSPLUGIN_REQUIRE_SLUG', False)
 TEMPLATE_CHOICES = getattr(settings, 'TABSPLUGIN_TEMPLATES', (
     ('cmsplugin_tabs/tabs.html', _('Tabs')),
     ('cmsplugin_tabs/accordion.html', _('Accordion')),
@@ -30,6 +31,7 @@ class SingleTab(models.Model):
     plugin = models.ForeignKey(CMSTabsList, related_name='tabs')
     title = models.CharField(_('Title'), max_length=255)
     content = HTMLField(_('Content'))
+    slug = models.SlugField(_('Slug'), max_length=32, blank=not REQUIRE_SLUG, default='')
     order = models.PositiveIntegerField(_('Order'), default=1, db_index=True)
 
     class Meta:
@@ -41,4 +43,4 @@ class SingleTab(models.Model):
         return unicode(self.title)
 
     def get_html_id(self):
-        return 'cmsplugin_tabs_%s' % self.pk
+        return self.slug or 'cmsplugin_tabs_%s' % self.pk

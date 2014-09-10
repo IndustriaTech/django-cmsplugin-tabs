@@ -10,6 +10,7 @@ from .models import CMSTabsList, SingleTab, DEFAULT_TEMPLATE
 class TabInline(StackedInline):
     model = SingleTab
     extra = 1
+    prepopulated_fields = {"slug": ("title",)}
 
 
 class CMSTabsListPlugin(CMSPluginBase):
