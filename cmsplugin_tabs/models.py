@@ -33,6 +33,7 @@ class SingleTab(models.Model):
     content = HTMLField(_('Content'))
     slug = models.SlugField(_('Slug'), max_length=32, blank=not REQUIRE_SLUG, default='')
     order = models.PositiveIntegerField(_('Order'), default=1, db_index=True)
+    is_strong = models.BooleanField(_('Strong'), default=False, help_text=_('When True then label of the tab will be bold'))
 
     class Meta:
         ordering = ['order']

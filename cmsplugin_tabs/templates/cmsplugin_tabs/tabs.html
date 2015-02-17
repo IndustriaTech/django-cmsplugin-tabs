@@ -1,7 +1,7 @@
 <div id="{{ tabs_list_id }}" class="tabs-plugin">
 	<ul class="tabs-list">
 		{% for tab in tabs %}
-			<li><a href="#{{tab.get_html_id}}">{{ tab }}</a></li>
+			<li><a href="#{{tab.get_html_id}}">{% if tab.is_strong %}<strong>{% endif %}{{ tab }}</a>{% if tab.is_strong %}</strong>{% endif %}</li>
 		{% endfor %}
 	</ul>
 	{% for tab in tabs %}
