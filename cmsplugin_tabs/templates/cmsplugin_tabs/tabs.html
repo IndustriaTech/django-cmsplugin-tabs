@@ -1,17 +1,27 @@
-<div id="{{ tabs_list_id }}" class="tabs-plugin">
-	<ul class="tabs-list">
-		{% for tab in tabs %}
-			<li><a href="#{{tab.get_html_id}}">{% if tab.is_strong %}<strong>{% endif %}{{ tab }}</a>{% if tab.is_strong %}</strong>{% endif %}</li>
-		{% endfor %}
-	</ul>
-	{% for tab in tabs %}
-		<div id="{{tab.get_html_id}}">
-			{{ tab.content|safe }}
-		</div>
-	{% endfor %}
+{% load cms_tags %}
+
+<div role="tabpanel" id="{{ tabs_list_id }}" class="tabs-plugin">
+    <ul class="nav nav-tabs" role="tablist">
+    {% if tabs.child_plugin_instances %}
+        {% for tab in tabs.child_plugin_instances %}
+            <li role="presentation" {% if firstchild == tab %} class="active" {% endif%}>
+            <a href="#{{ tab.get_html_id }}" aria-controls="{{ tab.get_html_id }}" role="tab" data-toggle="tab">
+            {% if tab.is_strong %}
+                <strong>
+            {% endif %}
+                {{ tab }}</a>
+            {% if tab.is_strong %}
+                </strong>
+            {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content">
+        {% for tab in tabs.child_plugin_instances %}
+            <div role="tabpanel" class="tab-pane {% if firstchild == tab %} active {% endif %}" id="{{ tab.get_html_id }}">
+                {% render_plugin tab %}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
-<script type="text/javascript">
-	$(function(){
-		$('#{{ tabs_list_id }}').tabs();
-	});
-</script>

@@ -1,40 +1,46 @@
-from django.utils.translation import ugettext as _
-from django.contrib.admin import StackedInline
-
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from .models import CMSTabsList, SingleTab, DEFAULT_TEMPLATE
 
 
-class TabInline(StackedInline):
-    model = SingleTab
-    extra = 1
-    prepopulated_fields = {"slug": ("title",)}
-
-
 class CMSTabsListPlugin(CMSPluginBase):
     model = CMSTabsList
-    module = _('Tabs')
-    name = _('Tabs')
+    module = 'Tabs'
+    name = 'Tabs'
     admin_preview = False
     render_template = DEFAULT_TEMPLATE
-    inlines = [TabInline]
-
-    class Media:
-        js = (
-            "cmsplugin_tabs/js/jquery.init.js",
-            "cms/js/libs/jquery.ui.core.js",
-            "cms/js/libs/jquery.ui.sortable.js",
-            "cmsplugin_tabs/js/jquery.inlineordering.js",
-            )
+    allow_children = True
+    child_classes = ["SingleTabPlugin"]
 
     def render(self, context, instance, placeholder):
         self.render_template = instance.get_template()
+        if len(instance.child_plugin_instances) >= 1:
+            firstchild = instance.child_plugin_instances[0]
+        else:
+            firstchild = None
         context.update({
             'tabs_list_id': 'tabs_list_plugin_%s' % instance.pk,
-            'tabs': instance.tabs.all(),
+            'firstchild': firstchild,
+            'tabs': instance,
             })
         return context
 
 plugin_pool.register_plugin(CMSTabsListPlugin)
+
+
+class SingleTabPlugin(CMSPluginBase):
+    model = SingleTab
+    module = 'Tab'
+    name = 'Tab'
+    allow_children = True
+    render_template = "cmsplugin_tabs/tab.html"
+    parent_classes = ["CMSTabsListPlugin"]
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'tab': instance,
+            })
+        return context
+
+plugin_pool.register_plugin(SingleTabPlugin)
