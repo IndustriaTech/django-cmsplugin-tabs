@@ -12,7 +12,6 @@ TEMPLATE_CHOICES = getattr(settings, 'TABSPLUGIN_TEMPLATES', (
 DEFAULT_TEMPLATE = TEMPLATE_CHOICES[0][0]
 
 
-
 class CMSTabsList(CMSPlugin):
     template = models.CharField('Template', max_length=255, choices=TEMPLATE_CHOICES, default=DEFAULT_TEMPLATE)
 
