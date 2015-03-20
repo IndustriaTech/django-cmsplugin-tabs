@@ -14,7 +14,10 @@
                 </div>
                 <div id="{{ tab.get_html_id }}"   class="panel-collapse collapse {% if firstchild == tab %}in{% endif %}" role="tabpanel" aria-labelledby="heading{{ tab.get_html_id }}">
                     <div class="panel-body">
-                        {% render_plugin tab %}
+                    {% if tab.content %}
+                        {{ tab.content|safe }}
+                    {% endif %}
+                    {% render_plugin tab %}
                     </div>
                 </div>
             {% endfor %}

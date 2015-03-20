@@ -1,7 +1,7 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import CMSTabsList, SingleTab, DEFAULT_TEMPLATE
+from .models import CMSTabsList, CMSSingleTab, DEFAULT_TEMPLATE
 
 
 class CMSTabsListPlugin(CMSPluginBase):
@@ -11,7 +11,7 @@ class CMSTabsListPlugin(CMSPluginBase):
     admin_preview = False
     render_template = DEFAULT_TEMPLATE
     allow_children = True
-    child_classes = ["SingleTabPlugin"]
+    child_classes = ["CMSSingleTabPlugin"]
 
     def render(self, context, instance, placeholder):
         self.render_template = instance.get_template()
@@ -29,8 +29,8 @@ class CMSTabsListPlugin(CMSPluginBase):
 plugin_pool.register_plugin(CMSTabsListPlugin)
 
 
-class SingleTabPlugin(CMSPluginBase):
-    model = SingleTab
+class CMSSingleTabPlugin(CMSPluginBase):
+    model = CMSSingleTab
     module = 'Tab'
     name = 'Tab'
     allow_children = True
@@ -43,4 +43,4 @@ class SingleTabPlugin(CMSPluginBase):
             })
         return context
 
-plugin_pool.register_plugin(SingleTabPlugin)
+plugin_pool.register_plugin(CMSSingleTabPlugin)

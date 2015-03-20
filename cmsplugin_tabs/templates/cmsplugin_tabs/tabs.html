@@ -19,6 +19,9 @@
     <div class="tab-content">
         {% for tab in tabs.child_plugin_instances %}
             <div role="tabpanel" class="tab-pane {% if firstchild == tab %} active {% endif %}" id="{{ tab.get_html_id }}">
+            {% if tab.content %}
+                {{ tab.content|safe }}
+            {% endif %}
                 {% render_plugin tab %}
             </div>
         {% endfor %}

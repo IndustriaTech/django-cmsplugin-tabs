@@ -8,25 +8,22 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        for tablist in orm.CMSTabsList.objects.all():
-            tab = orm.SingleTab(plugin = tablist)
-            cmssingletab = orm.CMSSingleTab(parent=tablist, title=tab.title, slug=tab.slug, is_strong=tab.is_strong, content=tab.content)
-            cmssingletab.save()
-
-        # Adding model 'CMSSingleTab'
-        db.create_table(u'cmsplugin_tabs_cmssingletab', (
-            (u'cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(default='', max_length=32, blank=True)),
-            ('is_strong', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('content', self.gf('tinymce.models.HTMLField')()),
-        ))
-        db.send_create_signal(u'cmsplugin_tabs', ['CMSSingleTab'])
+        # Deleting model 'SingleTab'
+        db.delete_table(u'cmsplugin_tabs_singletab')
 
 
     def backwards(self, orm):
-        # Deleting model 'CMSSingleTab'
-        db.delete_table(u'cmsplugin_tabs_cmssingletab')
+        # Adding model 'SingleTab'
+        db.create_table(u'cmsplugin_tabs_singletab', (
+            ('content', self.gf('tinymce.models.HTMLField')()),
+            ('slug', self.gf('django.db.models.fields.SlugField')(default='', max_length=32, blank=True)),
+            ('is_strong', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('plugin', self.gf('django.db.models.fields.related.ForeignKey')(related_name='tabs', to=orm['cmsplugin_tabs.CMSTabsList'])),
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('order', self.gf('django.db.models.fields.PositiveIntegerField')(default=1, db_index=True)),
+        ))
+        db.send_create_signal(u'cmsplugin_tabs', ['SingleTab'])
 
 
     models = {
@@ -54,7 +51,7 @@ class Migration(SchemaMigration):
         u'cmsplugin_tabs.cmssingletab': {
             'Meta': {'object_name': 'CMSSingleTab', '_ormbases': ['cms.CMSPlugin']},
             u'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
-            'content': ('tinymce.models.HTMLField', [], {}),
+            'content': ('tinymce.models.HTMLField', [], {'default': "''", 'blank': 'True'}),
             'is_strong': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'slug': ('django.db.models.fields.SlugField', [], {'default': "''", 'max_length': '32', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
@@ -63,16 +60,6 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'CMSTabsList', '_ormbases': ['cms.CMSPlugin']},
             u'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
             'template': ('django.db.models.fields.CharField', [], {'default': "'cmsplugin_tabs/tabs.html'", 'max_length': '255'})
-        },
-        u'cmsplugin_tabs.singletab': {
-            'Meta': {'ordering': "['order']", 'object_name': 'SingleTab'},
-            'content': ('tinymce.models.HTMLField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_strong': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'order': ('django.db.models.fields.PositiveIntegerField', [], {'default': '1', 'db_index': 'True'}),
-            'plugin': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tabs'", 'to': u"orm['cmsplugin_tabs.CMSTabsList']"}),
-            'slug': ('django.db.models.fields.SlugField', [], {'default': "''", 'max_length': '32', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         }
     }
 

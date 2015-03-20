@@ -1,32 +1,35 @@
 # -*- coding: utf-8 -*-
 from south.utils import datetime_utils as datetime
 from south.db import db
-from south.v2 import SchemaMigration
+from south.v2 import DataMigration
 from django.db import models
 
-
-class Migration(SchemaMigration):
+class Migration(DataMigration):
 
     def forwards(self, orm):
+        # Note: Don't use "from appname.models import ModelName". 
+        # Use orm.ModelName to refer to models in this application,
+        # and orm['appname.ModelName'] for models in other applications.
         for tablist in orm.CMSTabsList.objects.all():
-            tab = orm.SingleTab(plugin = tablist)
-            cmssingletab = orm.CMSSingleTab(parent=tablist, title=tab.title, slug=tab.slug, is_strong=tab.is_strong, content=tab.content)
-            cmssingletab.save()
-
-        # Adding model 'CMSSingleTab'
-        db.create_table(u'cmsplugin_tabs_cmssingletab', (
-            (u'cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(default='', max_length=32, blank=True)),
-            ('is_strong', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('content', self.gf('tinymce.models.HTMLField')()),
-        ))
-        db.send_create_signal(u'cmsplugin_tabs', ['CMSSingleTab'])
-
+           for tab in orm.SingleTab.objects.filter(plugin=tablist):
+                cmssingletab = orm.CMSSingleTab(
+                    parent=tablist,
+                    title=tab.title,
+                    slug=tab.slug,
+                    is_strong=tab.is_strong,
+                    content=tab.content,
+                    plugin_type='CMSSingleTabPlugin',
+                    language=tablist.language,
+                    placeholder=tablist.placeholder,
+                    level=tablist.level + 1,
+                    lft=tablist.lft,
+                    rght=tablist.rght,
+                    tree_id=tablist.tree_id,
+                )
+                cmssingletab.save()
 
     def backwards(self, orm):
-        # Deleting model 'CMSSingleTab'
-        db.delete_table(u'cmsplugin_tabs_cmssingletab')
+        orm.CMSSingleTab.objects.all().delete()
 
 
     models = {
@@ -77,3 +80,4 @@ class Migration(SchemaMigration):
     }
 
     complete_apps = ['cmsplugin_tabs']
+    symmetrical = True
