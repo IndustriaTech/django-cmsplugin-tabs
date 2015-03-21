@@ -19,6 +19,11 @@ After that you must add it to installed apps:
         ...
     )
 
+Finally you should correct the data storage for the new data with the command:
+
+    ./manage.py cms fix-mptt
+
+
 CONFIGURATION
 -------------
 
