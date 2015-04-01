@@ -8,11 +8,6 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        for tablist in orm.CMSTabsList.objects.all():
-            tab = orm.SingleTab(plugin = tablist)
-            cmssingletab = orm.CMSSingleTab(parent=tablist, title=tab.title, slug=tab.slug, is_strong=tab.is_strong, content=tab.content)
-            cmssingletab.save()
-
         # Adding model 'CMSSingleTab'
         db.create_table(u'cmsplugin_tabs_cmssingletab', (
             (u'cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
