@@ -1,3 +1,5 @@
+from django.utils.translation import ugettext_lazy as _
+
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
@@ -6,8 +8,8 @@ from .models import CMSTabsList, CMSSingleTab, DEFAULT_TEMPLATE
 
 class CMSTabsListPlugin(CMSPluginBase):
     model = CMSTabsList
-    module = 'Tabs'
-    name = 'Tabs'
+    module = _('Tabs')
+    name = _('Tabs')
     admin_preview = False
     render_template = DEFAULT_TEMPLATE
     allow_children = True
@@ -31,8 +33,8 @@ plugin_pool.register_plugin(CMSTabsListPlugin)
 
 class CMSSingleTabPlugin(CMSPluginBase):
     model = CMSSingleTab
-    module = 'Tab'
-    name = 'Tab'
+    module = _('Tab')
+    name = _('Tab')
     allow_children = True
     render_template = "cmsplugin_tabs/tab.html"
     parent_classes = ["CMSTabsListPlugin"]
