@@ -38,6 +38,6 @@ setup(
     install_requires=[
         'django>=1.3',
         'django-cms',
-        'django-tinymce',
+        'django-ckeditor',
     ],
 )

@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models import CMSPlugin
-from tinymce.models import HTMLField
+from ckeditor.fields import RichTextField
 
 REQUIRE_SLUG = getattr(settings, 'TABSPLUGIN_REQUIRE_SLUG', False)
 TEMPLATE_CHOICES = getattr(settings, 'TABSPLUGIN_TEMPLATES', (
@@ -28,7 +28,7 @@ class CMSSingleTab(CMSPlugin):
     title = models.CharField(_('Title'), max_length=255)
     slug = models.SlugField(_('Slug'), max_length=32, blank=not REQUIRE_SLUG, default='')
     is_strong = models.BooleanField(_('Strong'), default=False, help_text='When True then label of the tab will be bold')
-    content = HTMLField(_('Content'), blank=True, default='')
+    content = RichTextField(_('Content'), blank=True, default='')
 
     def __unicode__(self):
         return self.title

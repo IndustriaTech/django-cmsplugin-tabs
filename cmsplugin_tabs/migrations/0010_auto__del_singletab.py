@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         # Adding model 'SingleTab'
         db.create_table(u'cmsplugin_tabs_singletab', (
-            ('content', self.gf('tinymce.models.HTMLField')()),
+            ('content', self.gf('ckeditor.fields.RichTextField')()),
             ('slug', self.gf('django.db.models.fields.SlugField')(default='', max_length=32, blank=True)),
             ('is_strong', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
@@ -51,7 +51,7 @@ class Migration(SchemaMigration):
         u'cmsplugin_tabs.cmssingletab': {
             'Meta': {'object_name': 'CMSSingleTab', '_ormbases': ['cms.CMSPlugin']},
             u'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
-            'content': ('tinymce.models.HTMLField', [], {'default': "''", 'blank': 'True'}),
+            'content': ('ckeditor.fields.RichTextField', [], {'default': "''", 'blank': 'True'}),
             'is_strong': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'slug': ('django.db.models.fields.SlugField', [], {'default': "''", 'max_length': '32', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
