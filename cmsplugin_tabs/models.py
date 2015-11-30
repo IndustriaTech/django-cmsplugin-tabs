@@ -1,6 +1,11 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_str
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 
 from cms.models import CMSPlugin
 from ckeditor.fields import RichTextField
@@ -30,8 +35,11 @@ class CMSSingleTab(CMSPlugin):
     is_strong = models.BooleanField(_('Strong'), default=False, help_text='When True then label of the tab will be bold')
     content = RichTextField(_('Content'), blank=True, default='')
 
+    def __str__(self):
+        return smart_str(self.title)
+
     def __unicode__(self):
-        return self.title
+        return force_text(self.title)
 
     class Meta:
         verbose_name = _('Tab')
