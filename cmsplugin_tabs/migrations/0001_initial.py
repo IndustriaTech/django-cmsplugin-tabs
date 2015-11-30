@@ -8,7 +8,7 @@ import ckeditor.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0012_auto_20150607_2207'),
+        ('cms', '0003_auto_20140926_2347'),
     ]
 
     operations = [
