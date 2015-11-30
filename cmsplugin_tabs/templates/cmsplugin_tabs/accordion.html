@@ -1,8 +1,26 @@
-<div id="{{ tabs_list_id }}" class="tabs-plugin accordion">
-	{% for tab in tabs %}
-		<h3><a href="#{{tab.get_html_id}}">{{ tab }}</a></h3>
-		<div id="{{tab.get_html_id}}">
-			{{ tab.content|safe }}
-		</div>
-	{% endfor %}
-</div>
+{% load cms_tags %}
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    {% if tabs.child_plugin_instances %}
+        <div class="panel panel-default" id="{{ tabs_list_id }}">
+            {% for tab in tabs.child_plugin_instances %}
+                <div class="panel-heading" role="tab" id="heading{{ tab.get_html_id }}">
+                    <h4 class="panel-title">
+                         <a {% if firstchild != tab %}class="collapsed"{% endif%} data-toggle="collapse" data-parent="#accordion" href="#{{ tab.get_html_id }}" aria-expanded="{% if firstchild == tab %}true{%else%}false{% endif%}" aria-controls="{{ tab.get_html_id }}">
+                        {% if tab.is_strong %}<strong>{% endif %}
+                        {{ tab }}</a>
+                        {% if tab.is_strong %}</strong>{% endif %}
+                    </h4>
+                </div>
+                <div id="{{ tab.get_html_id }}"   class="panel-collapse collapse {% if firstchild == tab %}in{% endif %}" role="tabpanel" aria-labelledby="heading{{ tab.get_html_id }}">
+                    <div class="panel-body">
+                    {% if tab.content %}
+                        {{ tab.content|safe }}
+                    {% endif %}
+                    {% render_plugin tab %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+  </div>

@@ -1,14 +1,14 @@
-from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 from cms.models import CMSPlugin
-from tinymce.models import HTMLField
+from ckeditor.fields import RichTextField
 
 REQUIRE_SLUG = getattr(settings, 'TABSPLUGIN_REQUIRE_SLUG', False)
 TEMPLATE_CHOICES = getattr(settings, 'TABSPLUGIN_TEMPLATES', (
-    ('cmsplugin_tabs/tabs.html', _('Tabs')),
-    ('cmsplugin_tabs/accordion.html', _('Accordion')),
+    ('cmsplugin_tabs/tabs.html', 'Tabs'),
+    ('cmsplugin_tabs/accordion.html', 'Accordion'),
 ))
 DEFAULT_TEMPLATE = TEMPLATE_CHOICES[0][0]
 
@@ -16,32 +16,26 @@ DEFAULT_TEMPLATE = TEMPLATE_CHOICES[0][0]
 class CMSTabsList(CMSPlugin):
     template = models.CharField(_('Template'), max_length=255, choices=TEMPLATE_CHOICES, default=DEFAULT_TEMPLATE)
 
-    def copy_relations(self, oldinstance):
-        super(CMSTabsList, self).copy_relations(oldinstance)
-        for tab in oldinstance.tabs.all().iterator():
-            tab.pk = None
-            tab.plugin = self
-            tab.save()
+    class Meta:
+        verbose_name = _('Tab list')
+        verbose_name_plural = _('Tab lists')
 
     def get_template(self):
         return self.template or DEFAULT_TEMPLATE
 
 
-class SingleTab(models.Model):
-    plugin = models.ForeignKey(CMSTabsList, related_name='tabs')
+class CMSSingleTab(CMSPlugin):
     title = models.CharField(_('Title'), max_length=255)
-    content = HTMLField(_('Content'))
     slug = models.SlugField(_('Slug'), max_length=32, blank=not REQUIRE_SLUG, default='')
-    order = models.PositiveIntegerField(_('Order'), default=1, db_index=True)
-    is_strong = models.BooleanField(_('Strong'), default=False, help_text=_('When True then label of the tab will be bold'))
-
-    class Meta:
-        ordering = ['order']
-        verbose_name = _('Tab')
-        verbose_name_plural = _('Tabs')
+    is_strong = models.BooleanField(_('Strong'), default=False, help_text='When True then label of the tab will be bold')
+    content = RichTextField(_('Content'), blank=True, default='')
 
     def __unicode__(self):
-        return unicode(self.title)
+        return self.title
+
+    class Meta:
+        verbose_name = _('Tab')
+        verbose_name_plural = _('Tabs')
 
     def get_html_id(self):
         return self.slug or 'cmsplugin_tabs_%s' % self.pk
