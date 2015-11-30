@@ -19,9 +19,13 @@ After that you must add it to installed apps:
         ...
     )
 
-Finally you should correct the data storage for the new data with the command:
+If you are using South you need to put add this in `SOUTH_MIGRATION_MODULES`:
 
-    ./manage.py cms fix-mptt
+    SOUTH_MIGRATION_MODULES = {
+        ...
+        'cmsplugin_tabs': 'cmsplugin_tabs.south_migrations',
+        ...
+    }
 
 
 CONFIGURATION
