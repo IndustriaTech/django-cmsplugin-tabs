@@ -15,7 +15,7 @@ setup(
     description="Plugin for Django-CMS that create list of tabs (using jquery ui)",
     long_description=README,
     author='Venelin Stoykov',
-    author_email='venelin@magicbg.com',
+    author_email='venelin@magicsolutions.bg',
     packages=[
         'cmsplugin_tabs',
         'cmsplugin_tabs.migrations',
