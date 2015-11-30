@@ -1,18 +1,17 @@
 {% load cms_tags %}
 
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="panel-group" id="{{ tabs_list_id }}" role="tablist" aria-multiselectable="true">
     {% if tabs.child_plugin_instances %}
-        <div class="panel panel-default" id="{{ tabs_list_id }}">
+        <div class="panel panel-default">
             {% for tab in tabs.child_plugin_instances %}
                 <div class="panel-heading" role="tab" id="heading{{ tab.get_html_id }}">
                     <h4 class="panel-title">
-                         <a {% if firstchild != tab %}class="collapsed"{% endif%} data-toggle="collapse" data-parent="#accordion" href="#{{ tab.get_html_id }}" aria-expanded="{% if firstchild == tab %}true{%else%}false{% endif%}" aria-controls="{{ tab.get_html_id }}">
-                        {% if tab.is_strong %}<strong>{% endif %}
-                        {{ tab }}</a>
-                        {% if tab.is_strong %}</strong>{% endif %}
+                        <a {% if not forloop.first %}class="collapsed"{% endif%} data-toggle="collapse" data-parent="#{{ tabs_list_id }}" href="#{{ tab.get_html_id }}" aria-expanded="{{ forloop.first|yesno:'true,false' }}" aria-controls="{{ tab.get_html_id }}">
+                            {% if tab.is_strong %}<strong>{% endif %}{{ tab }}{% if tab.is_strong %}</strong>{% endif %}
+                        </a>
                     </h4>
                 </div>
-                <div id="{{ tab.get_html_id }}"   class="panel-collapse collapse {% if firstchild == tab %}in{% endif %}" role="tabpanel" aria-labelledby="heading{{ tab.get_html_id }}">
+                <div id="{{ tab.get_html_id }}"   class="panel-collapse collapse {% if forloop.first %}in{% endif %}" role="tabpanel" aria-labelledby="heading{{ tab.get_html_id }}">
                     <div class="panel-body">
                     {% if tab.content %}
                         {{ tab.content|safe }}
@@ -23,4 +22,4 @@
             {% endfor %}
         </div>
     {% endif %}
-  </div>
+</div>

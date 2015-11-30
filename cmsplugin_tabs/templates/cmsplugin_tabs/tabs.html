@@ -4,21 +4,16 @@
     <ul class="nav nav-tabs" role="tablist">
     {% if tabs.child_plugin_instances %}
         {% for tab in tabs.child_plugin_instances %}
-            <li role="presentation" {% if firstchild == tab %} class="active" {% endif%}>
-            <a href="#{{ tab.get_html_id }}" aria-controls="{{ tab.get_html_id }}" role="tab" data-toggle="tab">
-            {% if tab.is_strong %}
-                <strong>
-            {% endif %}
-                {{ tab }}</a>
-            {% if tab.is_strong %}
-                </strong>
-            {% endif %}
+            <li role="presentation"{% if  forloop.first %} class="active"{% endif%}>
+                <a href="#{{ tab.get_html_id }}" aria-controls="{{ tab.get_html_id }}" role="tab" data-toggle="tab">
+                    {% if tab.is_strong %}<strong>{% endif %}{{ tab }}{% if tab.is_strong %}</strong>{% endif %}
+                </a>
             </li>
         {% endfor %}
     </ul>
     <div class="tab-content">
         {% for tab in tabs.child_plugin_instances %}
-            <div role="tabpanel" class="tab-pane {% if firstchild == tab %} active {% endif %}" id="{{ tab.get_html_id }}">
+            <div role="tabpanel" class="tab-pane{% if  forloop.first %} active{% endif %}" id="{{ tab.get_html_id }}">
             {% if tab.content %}
                 {{ tab.content|safe }}
             {% endif %}

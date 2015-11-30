@@ -17,13 +17,8 @@ class CMSTabsListPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         self.render_template = instance.get_template()
-        if instance.child_plugin_instances is not None and len(instance.child_plugin_instances) >= 1:
-            firstchild = instance.child_plugin_instances[0]
-        else:
-            firstchild = None
         context.update({
             'tabs_list_id': 'tabs_list_plugin_%s' % instance.pk,
-            'firstchild': firstchild,
             'tabs': instance,
             })
         return context
