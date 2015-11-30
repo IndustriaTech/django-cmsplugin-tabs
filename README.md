@@ -52,6 +52,6 @@ REQUIREMENTS
 
 Bootstrap 3
 
-django-cmsplugin-tabs require django, django-cms and django-tinymce
+django-cmsplugin-tabs require django, django-cms and django-ckeditor
 
-Plugin was developed under Django ver 1.6 and Django-CMS ver 3.0 
+Plugin was developed under Django ver 1.6 and Django-CMS ver 3.0
