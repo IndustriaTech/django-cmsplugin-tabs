@@ -1,14 +1,12 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import smart_str
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
 
 from cms.models import CMSPlugin
 from ckeditor.fields import RichTextField
+
+from .utils import force_str, force_text
+
 
 REQUIRE_SLUG = getattr(settings, 'TABSPLUGIN_REQUIRE_SLUG', False)
 TEMPLATE_CHOICES = getattr(settings, 'TABSPLUGIN_TEMPLATES', (
@@ -25,6 +23,12 @@ class CMSTabsList(CMSPlugin):
         verbose_name = _('Tab list')
         verbose_name_plural = _('Tab lists')
 
+    def __str__(self):
+        return force_str(self.get_template_display())
+
+    def __unicode__(self):
+        return force_text(self.get_template_display())
+
     def get_template(self):
         return self.template or DEFAULT_TEMPLATE
 
@@ -36,7 +40,7 @@ class CMSSingleTab(CMSPlugin):
     content = RichTextField(_('Content'), blank=True, default='')
 
     def __str__(self):
-        return smart_str(self.title)
+        return force_str(self.title)
 
     def __unicode__(self):
         return force_text(self.title)
