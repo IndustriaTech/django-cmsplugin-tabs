@@ -11,7 +11,7 @@ README = read('README.md')
 
 setup(
     name="django-cmsplugin-tabs",
-    version="0.1.0",
+    version="0.1.1",
     url='http://github.com/MagicSolutions/django-cmsplugin-tabs',
     description="Plugin for Django-CMS that create list of tabs (using jquery ui)",
     long_description=README,
