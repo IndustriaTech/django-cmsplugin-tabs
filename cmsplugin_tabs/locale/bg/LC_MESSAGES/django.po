@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.0.3\n"
+"Project-Id-Version: 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-23 10:21+0200\n"
+"POT-Creation-Date: 2015-12-02 11:24+0200\n"
 "PO-Revision-Date: 2014-01-23 10:34+0200\n"
-"Last-Translator: Venelin Stoykov <venelin@magicbg.com>\n"
+"Last-Translator: Venelin Stoykov <venelin@magicsolutions.bg>\n"
 "Language-Team: BG <support@magicsolutions.bg>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -17,34 +17,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: cms_plugins.py:17
-#: cms_plugins.py:18
-#: models.py:9
-#: models.py:38
+#: cmsplugin_tabs/cms_plugins.py:11 cmsplugin_tabs/cms_plugins.py:12
+#: cmsplugin_tabs/conf.py:11 cmsplugin_tabs/models.py:44
 msgid "Tabs"
 msgstr "Табове"
 
-#: models.py:10
-msgid "Accordion"
-msgstr "Акордеон"
-
-#: models.py:16
-msgid "Template"
-msgstr "Шаблон"
-
-#: models.py:31
-msgid "Title"
-msgstr "Заглавие"
-
-#: models.py:32
-msgid "Content"
-msgstr "Съдържание"
-
-#: models.py:33
-msgid "Order"
-msgstr "Ред"
-
-#: models.py:37
+#: cmsplugin_tabs/cms_plugins.py:31 cmsplugin_tabs/cms_plugins.py:32
+#: cmsplugin_tabs/models.py:43
 msgid "Tab"
 msgstr "Таб"
 
+#: cmsplugin_tabs/conf.py:12
+msgid "Accordion"
+msgstr "Акордеон"
+
+#: cmsplugin_tabs/models.py:14
+msgid "Template"
+msgstr "Шаблон"
+
+#: cmsplugin_tabs/models.py:17
+msgid "Tab list"
+msgstr "Списък табове"
+
+#: cmsplugin_tabs/models.py:18
+msgid "Tab lists"
+msgstr "Списъци с табове"
+
+#: cmsplugin_tabs/models.py:31
+msgid "Title"
+msgstr "Заглавие"
+
+#: cmsplugin_tabs/models.py:32
+msgid "Slug"
+msgstr "Слъг"
+
+#: cmsplugin_tabs/models.py:33
+msgid "Strong"
+msgstr "Болд"
+
+#: cmsplugin_tabs/models.py:34
+msgid "Content"
+msgstr "Съдържание"
