@@ -23,8 +23,8 @@ setup(
     ],
     package_data={
         'cmsplugin_tabs': [
-            'templates/cmsplugin_tabs/*.html',
-            'locale/bg/LC_MESSAGES/django.*',
+            'templates/cmsplugin_tabs/*',
+            'locale/*/LC_MESSAGES/*',
         ],
     },
     classifiers=[
