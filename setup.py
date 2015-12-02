@@ -24,7 +24,6 @@ setup(
     package_data={
         'cmsplugin_tabs': [
             'templates/cmsplugin_tabs/*.html',
-            'static/cmsplugin_tabs/js/*.js',
             'locale/bg/LC_MESSAGES/django.*',
         ],
     },
