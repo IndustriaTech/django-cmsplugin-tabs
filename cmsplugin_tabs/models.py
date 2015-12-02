@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models import CMSPlugin
@@ -8,12 +7,7 @@ from ckeditor.fields import RichTextField
 from .utils import force_str, force_text
 
 
-REQUIRE_SLUG = getattr(settings, 'TABSPLUGIN_REQUIRE_SLUG', False)
-TEMPLATE_CHOICES = getattr(settings, 'TABSPLUGIN_TEMPLATES', (
-    ('cmsplugin_tabs/tabs.html', 'Tabs'),
-    ('cmsplugin_tabs/accordion.html', 'Accordion'),
-))
-DEFAULT_TEMPLATE = TEMPLATE_CHOICES[0][0]
+from .conf import TEMPLATE_CHOICES, DEFAULT_TEMPLATE, BLANK_SLUG
 
 
 class CMSTabsList(CMSPlugin):
@@ -35,7 +29,7 @@ class CMSTabsList(CMSPlugin):
 
 class CMSSingleTab(CMSPlugin):
     title = models.CharField(_('Title'), max_length=255)
-    slug = models.SlugField(_('Slug'), max_length=32, blank=not REQUIRE_SLUG, default='')
+    slug = models.SlugField(_('Slug'), max_length=32, blank=BLANK_SLUG, default='')
     is_strong = models.BooleanField(_('Strong'), default=False, help_text='When True then label of the tab will be bold')
     content = RichTextField(_('Content'), blank=True, default='')
 
