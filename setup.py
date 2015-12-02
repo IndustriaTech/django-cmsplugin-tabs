@@ -19,6 +19,7 @@ setup(
     packages=[
         'cmsplugin_tabs',
         'cmsplugin_tabs.migrations',
+        'cmsplugin_tabs.south_migrations',
     ],
     package_data={
         'cmsplugin_tabs': [
