@@ -30,7 +30,7 @@ class CMSTabsList(CMSPlugin):
 class CMSSingleTab(CMSPlugin):
     title = models.CharField(_('Title'), max_length=255)
     slug = models.SlugField(_('Slug'), max_length=32, blank=BLANK_SLUG, default='')
-    is_strong = models.BooleanField(_('Strong'), default=False, help_text='When True then label of the tab will be bold')
+    is_strong = models.BooleanField(_('Strong'), default=False, help_text=_('When True then label of the tab will be bold'))
     content = RichTextField(_('Content'), blank=True, default='')
 
     def __str__(self):
