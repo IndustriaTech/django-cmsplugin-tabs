@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
 
         # Changing field 'SingleTab.content'
-        db.alter_column('cmsplugin_tabs_singletab', 'content', self.gf('ckeditor.fields.RichTextField')())
+        db.alter_column('cmsplugin_tabs_singletab', 'content', self.gf('djangocms_text_ckeditor.fields.HTMLField')())
 
     def backwards(self, orm):
 
@@ -44,7 +44,7 @@ class Migration(SchemaMigration):
         },
         'cmsplugin_tabs.singletab': {
             'Meta': {'ordering': "['order']", 'object_name': 'SingleTab'},
-            'content': ('ckeditor.fields.RichTextField', [], {}),
+            'content': ('djangocms_text_ckeditor.fields.HTMLField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'order': ('django.db.models.fields.PositiveIntegerField', [], {'default': '1', 'db_index': 'True'}),
             'plugin': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tabs'", 'to': "orm['cmsplugin_tabs.CMSTabsList']"}),

@@ -48,7 +48,7 @@ class Migration(SchemaMigration):
         },
         'cmsplugin_tabs.singletab': {
             'Meta': {'ordering': "['order']", 'object_name': 'SingleTab'},
-            'content': ('ckeditor.fields.RichTextField', [], {}),
+            'content': ('djangocms_text_ckeditor.fields.HTMLField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_strong': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'order': ('django.db.models.fields.PositiveIntegerField', [], {'default': '1', 'db_index': 'True'}),

@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models import CMSPlugin
-from ckeditor.fields import RichTextField
+from djangocms_text_ckeditor.fields import HTMLField
 
 from .utils import force_str, force_text
 
@@ -31,7 +31,7 @@ class CMSSingleTab(CMSPlugin):
     title = models.CharField(_('Title'), max_length=255)
     slug = models.SlugField(_('Slug'), max_length=32, blank=BLANK_SLUG, default='')
     is_strong = models.BooleanField(_('Strong'), default=False, help_text=_('When True then label of the tab will be bold'))
-    content = RichTextField(_('Content'), blank=True, default='')
+    content = HTMLField(_('Content'), blank=True, default='')
 
     def __str__(self):
         return force_str(self.title)

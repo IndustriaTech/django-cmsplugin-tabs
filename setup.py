@@ -37,8 +37,8 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ],
     install_requires=[
-        'django>=1.3',
-        'django-cms',
-        'django-ckeditor',
+        'django>=1.4',
+        'django-cms>=3.0',
+        'djangocms-text-ckeditor>=2.4.1',
     ],
 )
