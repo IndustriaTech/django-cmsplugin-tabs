@@ -64,4 +64,6 @@ Bootstrap 3
 
 django-cmsplugin-tabs require django, django-cms and django-ckeditor
 
-Plugin was developed under Django ver 1.6 and Django-CMS ver 3.0
+Plugin was developed under Django ver 1.8 and DjangoCMS ver 3.1.
+
+It should work on older versions of Django and DjangoCMS. Pull requests are welcome.
