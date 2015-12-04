@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import ckeditor.fields
+import djangocms_text_ckeditor.fields
+
 from cmsplugin_tabs.conf import BLANK_SLUG, TEMPLATE_CHOICES, DEFAULT_TEMPLATE
 
 
@@ -20,7 +21,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(verbose_name='Title', max_length=255)),
                 ('slug', models.SlugField(verbose_name='Slug', default='', max_length=32, blank=BLANK_SLUG)),
                 ('is_strong', models.BooleanField(default=False, verbose_name='Strong', help_text='When True then label of the tab will be bold')),
-                ('content', ckeditor.fields.RichTextField(blank=True, default='', verbose_name='Content')),
+                ('content', djangocms_text_ckeditor.fields.HTMLField(blank=True, default='', verbose_name='Content')),
             ],
             options={
                 'verbose_name': 'Tab',

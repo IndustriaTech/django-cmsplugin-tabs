@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('slug', self.gf('django.db.models.fields.SlugField')(default='', max_length=32, blank=True)),
             ('is_strong', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('content', self.gf('ckeditor.fields.RichTextField')()),
+            ('content', self.gf('djangocms_text_ckeditor.fields.HTMLField')()),
         ))
         db.send_create_signal(u'cmsplugin_tabs', ['CMSSingleTab'])
 
@@ -49,7 +49,7 @@ class Migration(SchemaMigration):
         u'cmsplugin_tabs.cmssingletab': {
             'Meta': {'object_name': 'CMSSingleTab', '_ormbases': ['cms.CMSPlugin']},
             u'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
-            'content': ('ckeditor.fields.RichTextField', [], {}),
+            'content': ('djangocms_text_ckeditor.fields.HTMLField', [], {}),
             'is_strong': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'slug': ('django.db.models.fields.SlugField', [], {'default': "''", 'max_length': '32', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
@@ -61,7 +61,7 @@ class Migration(SchemaMigration):
         },
         u'cmsplugin_tabs.singletab': {
             'Meta': {'ordering': "['order']", 'object_name': 'SingleTab'},
-            'content': ('ckeditor.fields.RichTextField', [], {}),
+            'content': ('djangocms_text_ckeditor.fields.HTMLField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_strong': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'order': ('django.db.models.fields.PositiveIntegerField', [], {'default': '1', 'db_index': 'True'}),
