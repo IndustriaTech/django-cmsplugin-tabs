@@ -10,7 +10,7 @@ You can simply install it with pip like this:
 
 .. code-block:: bash
 
-    pip install git+https://github.com/MagicSolutions/django-cmsplugin-tabs.git#egg=django-cmsplugin-tabs
+    pip install git+https://github.com/IndustriaTech/django-cmsplugin-tabs.git#egg=django-cmsplugin-tabs
 
 
 After that you must add it to :code:`INSTALLED_APPS`:
