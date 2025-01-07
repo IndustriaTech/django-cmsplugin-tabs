@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CMSSingleTab',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(serialize=False, primary_key=True, auto_created=True, to='cms.CMSPlugin', parent_link=True)),
+                ('cmsplugin_ptr', models.OneToOneField(serialize=False, primary_key=True, auto_created=True, to='cms.CMSPlugin', parent_link=True, on_delete=models.CASCADE)),
                 ('title', models.CharField(verbose_name='Title', max_length=255)),
                 ('slug', models.SlugField(verbose_name='Slug', default='', max_length=32, blank=BLANK_SLUG)),
                 ('is_strong', models.BooleanField(default=False, verbose_name='Strong', help_text='When True then label of the tab will be bold')),
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CMSTabsList',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(serialize=False, primary_key=True, auto_created=True, to='cms.CMSPlugin', parent_link=True)),
+                ('cmsplugin_ptr', models.OneToOneField(serialize=False, primary_key=True, auto_created=True, to='cms.CMSPlugin', parent_link=True, on_delete=models.CASCADE)),
                 ('template', models.CharField(verbose_name='Template', default=DEFAULT_TEMPLATE, choices=TEMPLATE_CHOICES, max_length=255)),
             ],
             options={
