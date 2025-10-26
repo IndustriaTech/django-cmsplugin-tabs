@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from cms.models import CMSPlugin
 from djangocms_text_ckeditor.fields import HTMLField
 
-from .utils import force_str, force_text
+from .utils import force_str
 
 
 from .conf import TEMPLATE_CHOICES, DEFAULT_TEMPLATE, BLANK_SLUG

@@ -1,6 +1,6 @@
 
 try:
-    from django.utils.encoding import force_str, force_text
+    from django.utils.encoding import force_str
 except ImportError:
     # Django < 1.5
     from django.utils.encoding import smart_str, force_unicode as force_text
